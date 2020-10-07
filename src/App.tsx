@@ -1,24 +1,21 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import '@south-paw/typeface-minecraft';
+import { Panorama } from './components/panorama/panorama.component';
+import { PageTitle } from './components/pagetitle/page.title.component';
+import { MenuButton } from './components/menubutton/menu.button.component';
+import { Recipe } from './components/recipe/recipe.component';
+import { YerAWizardScreen } from './screens/yerawizard/yerawizard.screen';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Panorama />
+      <PageTitle />
+      <MenuButton />
+      <div style={{backgroundColor: 'red', display: 'flex'}}>
+        <YerAWizardScreen />
+      </div>
     </div>
   );
 }

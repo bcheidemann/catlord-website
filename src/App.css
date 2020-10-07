@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+body {
+  font-family: "Minecraft";
+}
+
+h1 {
+  font-family: "Minecraft";
+}
