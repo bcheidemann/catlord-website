@@ -27,7 +27,7 @@ function App() {
               }}
             >
               <div style={{ maxWidth: 1200, margin: 'auto' }}>
-                <div style={{ position: 'relative', backgroundColor: 'green' }}>
+                <div style={{ position: 'relative' }}>
                   <div className="fade"></div>
                   <img src={require('./assets/panorama/panorama2.png')} alt={'PANORAMA NOT FOUND'} width={'100%'} />
                 </div>
