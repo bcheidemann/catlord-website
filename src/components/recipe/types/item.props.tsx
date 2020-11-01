@@ -317,7 +317,7 @@ ItemProps.set('empty_armor_slot_shield', { imageRendering: 'pixelated' });
 ItemProps.set('enchanted_book', { imageRendering: 'pixelated' });
 ItemProps.set('enchanting_table', { imageRendering: 'pixelated' });
 ItemProps.set('ender_chest', { imageRendering: 'pixelated' });
-ItemProps.set('ender_eye', { imageRendering: 'pixelated' });
+ItemProps.set('ender_eye', { imageRendering: 'pixelated', overrideName: 'Eye of Ender' });
 ItemProps.set('ender_pearl', { imageRendering: 'pixelated' });
 ItemProps.set('end_crystal', { imageRendering: 'pixelated' });
 ItemProps.set('end_stone', { imageRendering: 'pixelated' });

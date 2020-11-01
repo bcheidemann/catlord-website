@@ -1,3 +1,15 @@
+.fade {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background: -webkit-linear-gradient(bottom, 
+             darkgray 1%, 
+              rgba(0,0,0,0) 10%,
+              rgba(0,0,0,0) 100%,
+              rgba(0,0,0,0.85) 100%
+  );
+}
+
 .App {
   text-align: center;
 }
@@ -39,8 +51,52 @@
 
 body {
   font-family: "Minecraft";
+  background-color: rgb(0, 0, 0);
 }
 
 h1 {
   font-family: "Minecraft";
+  font-size: 40px;
+}
+
+h2 {
+  font-family: "Minecraft";
+  font-size: 20px;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.hide {
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.hide.show {
+  opacity: 1;
+}
+
+.displace {
+  position: absolute;
+  top: -9999999px;
+  width: 0px;
+  height: 0px;
 }
