@@ -2,6 +2,8 @@
 
 # The CatLord Minecraft Community Website
 
+This is the official website of the CatLordMC Minecraft community. The website is deployed [here](http://www.catlord.co.uk/). We are planning to allow applications to join our community via the website. In the mean time, if you wish to join the community, please raise an issue on the repo.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
