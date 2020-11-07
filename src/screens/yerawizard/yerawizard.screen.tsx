@@ -90,12 +90,12 @@ export class YerAWizardScreen extends BaseScreen<YerAWizardScreenProps, {}> {
                 </RecipePreview>
                 <div style={{ height: 20 }} />
                 <RecipePreview
-                    title='Finius Pectus'
+                    title='Saccus Dorsualis'
                     description="This nifty spell grants you access to your ender chest with a flick of your wand. This can be very handy for quick access to belongings while on the move or if you don't carry a silk touch pickaxe."
                 >
                     <Recipe
                         outputItemName={'book'}
-                        outputItemNameOverride={'Finius Pectus Spellbook'}
+                        outputItemNameOverride={'Saccus Dorsualis Spellbook'}
                         itemNames={['obsidian', 'ender_eye', 'obsidian',
                                     'NONE', 'book', 'NONE',
                                     'NONE', 'experience_bottle', 'NONE']}
