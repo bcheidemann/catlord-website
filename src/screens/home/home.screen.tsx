@@ -71,11 +71,6 @@ export class HomeScreen extends BaseScreen<HomeScreenProps, {}> {
                 <ul style={{ textAlign: 'left' }}>
                     <li>
                         <p style={{ paddingTop: 14 }}>
-                            <b>Happy Animals.</b> This datapack requires players to exercise proper animal husbandry. Animals thrive better if they are kept in larger enclosures which have things like grass, hay bales etc. in them. Animals know three states: sad, content and happy. Depending on their state yield in terms of drops increases or decreases.
-                        </p>
-                    </li>
-                    <li>
-                        <p style={{ paddingTop: 14 }}>
                             <b>Balanced Diet.</b> With this datapack the value of a particular food decreases with each time it is consumed. If the player eats a different food the value of the other food will increase again. Food which has not been eaten before by the player has a very significant effect.
                         </p>
                     </li>
@@ -100,7 +95,7 @@ export class HomeScreen extends BaseScreen<HomeScreenProps, {}> {
                     We play with the 'Yer A Wizard' mod enabled. This mod was developed by our admins specifically for this server to bring magic to our world. The mod is intended to introduce useful and interesting new mechanics without being overpowered or unballancing the game. For more details go to <Link to={'/yerawizard'}>this</Link> page.
                 </p>
                 <p>
-                    <i>NOTE: the YerAWizard mod is currently in pre-alpha and is subject to change significantly.</i>
+                    <i>NOTE: the YerAWizard mod is currently in pre-alpha and is subject to change significantly. What you see on the details page is planned content an may not reflect the current implementation of the mod.</i>
                 </p>
             </div>
         );
