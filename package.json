@@ -25,6 +25,7 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
+    "update": "git pull && npm run build",
     "server": "npm run build && node server.js",
     "start": "react-scripts start",
     "build": "react-scripts build",
