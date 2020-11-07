@@ -4,6 +4,25 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
+### `npm run update`
+
+Pulls the latest from your current app and runs npm run build.
+This is intended for use on the remote server to update it to the latest master from the github repository.
+
+### `npm run server`
+
+Builds and runs the server on port 9000.
+
+### `npm run gentypes`
+
+This is used to generate the types for the recipe component and to condense all the icon files into a single "icons" directory. Note that this command is highly configurable and running it with the wrong arguments can lead to unintended outcomes.
+
+Usage: npm run gentypes -- -h
+
+### `npm run renamedir`
+
+This is a helper to rename all the files in a directory. Upon running the helper, you will be prompted for the directory in which you want to rename files. It will then go through each file and prompt you for a new name. Enter a new name and press enter to continue onto the next file or press enter without inputing a new name to skip.
+
 ### `npm start`
 
 Runs the app in the development mode.<br />

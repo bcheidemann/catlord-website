@@ -22,10 +22,10 @@ parser.add_argument('--preserve-item-props', dest='preserveitemprops', action='s
                    help='Do not overwrite exisiting item props when regenerating item props - only add new ones.')
 parser.add_argument('--wipe', dest='wipe', action='store_const',
                    const=True, default=False,
-                   help='Delete all files from the working icons directory before condensing source icon folders')
+                   help='Delete all files from the working icons directory before condensing source icon folders.')
 parser.add_argument('--overwrite', dest='overwrite', action='store_const',
                    const=True, default=False,
-                   help='Overwrite existing icons in the working icons directory when conflicts arrise')
+                   help='Overwrite existing icons in the working icons directory when conflicts arrise.')
 parser.add_argument('--ignore-warnings', dest='warnings', action='store_const',
                    const=False, default=True,
                    help='Don\'t log warnings')

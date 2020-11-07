@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "gentypes": "python ./src/scripts/generate_icon_types.py",
-    "renameDir": "python ./src/scripts/rename_helper.py"
+    "renamedir": "python ./src/scripts/rename_helper.py"
   },
   "eslintConfig": {
     "extends": "react-app"

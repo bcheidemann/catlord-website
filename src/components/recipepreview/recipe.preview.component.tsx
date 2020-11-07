@@ -15,7 +15,7 @@ export class RecipePreview extends React.Component<RecipePreviewProps, {}> {
                         {this.props.description}
                     </div>
                 </div>
-                <div style={{ paddingLeft: 10 }}>
+                <div style={{ paddingLeft: 10 }} className={'noselect'} >
                     {this.props.children}
                 </div>
             </div>
