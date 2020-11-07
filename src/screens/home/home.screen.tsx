@@ -95,7 +95,7 @@ export class HomeScreen extends BaseScreen<HomeScreenProps, {}> {
                     We play with the 'Yer A Wizard' mod enabled. This mod was developed by our admins specifically for this server to bring magic to our world. The mod is intended to introduce useful and interesting new mechanics without being overpowered or unballancing the game. For more details go to <Link to={'/yerawizard'}>this</Link> page.
                 </p>
                 <p>
-                    <i>NOTE: the YerAWizard mod is currently in pre-alpha and is subject to change significantly. What you see on the details page is planned content an may not reflect the current implementation of the mod.</i>
+                    <i>NOTE: the YerAWizard mod is currently in pre-alpha and is subject to change significantly. What you see on the details page is planned content and may not reflect the current implementation of the mod.</i>
                 </p>
             </div>
         );
