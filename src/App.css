@@ -64,6 +64,11 @@ h2 {
   font-size: 20px;
 }
 
+h3 {
+  font-family: "Minecraft";
+  font-size: 16px;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 body::-webkit-scrollbar {
   display: none;

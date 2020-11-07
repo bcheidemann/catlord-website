@@ -5,6 +5,7 @@ import { MenuBar } from './components/menubar/menubar.component';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { YerAWizardScreen } from './screens/yerawizard/yerawizard.screen';
 import { HomeScreen } from './screens/home/home.screen';
+import { DownloadsScreen } from './screens/downloads/downloads.screen';
 
 function App() {
   return (
@@ -37,6 +38,9 @@ function App() {
               </Route>
               <Route exact={true} path="/yerawizard">
                 <YerAWizardScreen />
+              </Route>
+              <Route exact={true} path="/downloads">
+                <DownloadsScreen />
               </Route>
             </div>
           </div>
