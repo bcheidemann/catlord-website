@@ -17,13 +17,15 @@ export class DownloadsScreen extends BaseScreen<DownloadsScreenProps, {}> {
                 <p>
                     The world download for CatLord season 1 is now available!
                 </p>
-                <p>
-                    <div style={{ backgroundColor: 'lightgray', padding: 16, borderRadius: 8 }}>
-                        <a href={'https://drive.google.com/file/d/1DiVeNrUxhTsgG58hc7L1AhqUBGjR8nVp/view?usp=sharing'} target="_blank">
-                            Season 1: Download
-                        </a>
-                    </div>
-                </p>
+                <div style={{ backgroundColor: 'lightgray', padding: 16, borderRadius: 8 }}>
+                    <a
+                        href={'https://drive.google.com/file/d/1DiVeNrUxhTsgG58hc7L1AhqUBGjR8nVp/view?usp=sharing'}
+                        target={"_blank"}
+                        rel={"noopener noreferrer"}
+                    >
+                        Season 1: Download
+                    </a>
+                </div>
             </div>
         );
     }
