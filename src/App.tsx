@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { YerAWizardScreen } from './screens/yerawizard/yerawizard.screen';
 import { HomeScreen } from './screens/home/home.screen';
 import { DownloadsScreen } from './screens/downloads/downloads.screen';
+import { FileNotFoundScreen } from './screens/filenotfound/file.not.found.screen';
 
 function App() {
   return (
@@ -24,7 +25,8 @@ function App() {
                 borderTopRightRadius: 0,
                 borderTopLeftRadius: 0,
                 borderStyle: 'solid',
-                borderColor: 'black'
+                borderColor: 'black',
+                marginBottom: 100,
               }}
             >
               <div style={{ maxWidth: 1200, margin: 'auto' }}>
@@ -33,6 +35,9 @@ function App() {
                   <img src={require('./assets/panorama/panorama2.png')} alt={'PANORAMA NOT FOUND'} width={'100%'} />
                 </div>
               </div>
+              <Route exact={true} path="/404">
+                <FileNotFoundScreen />
+              </Route>
               <Route exact={true} path="/">
                 <HomeScreen />
               </Route>
