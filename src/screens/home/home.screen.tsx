@@ -86,7 +86,7 @@ export class HomeScreen extends BaseScreen<HomeScreenProps, {}> {
                     </li>
                     <li>
                         <p style={{ paddingTop: 14 }}>
-                            <b>Sleep.</b> This datapack alters the behaviour of vanilla Minecraft so that only one of the players present on the server has to sleep in order for night to move forward. Top tip, carry a bed.
+                            <b>Sleep.</b> This datapack alters the behaviour of vanilla Minecraft so that only one of the players present on the server has to sleep in order for night to move forward. Top tip, carry a bed or two.
                         </p>
                     </li>
                 </ul>
