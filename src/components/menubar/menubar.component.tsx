@@ -6,33 +6,12 @@ import ICON from "../../assets/icon/icon.png";
 
 export interface MenuBarProps {
     location: { pathname: string };
-    // title: string;
     subTitle?: string;
 }
 
 export class MenuBar extends React.Component<MenuBarProps, {}> {
 
     private title = 'CatLord MC';
-
-    public menubar!: HTMLElement | null;
-
-    public moveHeader = () => {
-        if (this.menubar) {
-            this.menubar.style.top = `${document.documentElement.scrollTop}px`;
-        }
-    }
-
-    componentDidMount() {
-        runInAction(() => {
-            NavigationStore.path.set(this.props.location.pathname);
-        });
-        this.menubar = document.getElementById('MENU_BAR');
-        document.addEventListener('scroll', this.moveHeader);
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('scroll', this.moveHeader);
-    }
 
     componentDidUpdate() {
         runInAction(() => {
@@ -42,7 +21,7 @@ export class MenuBar extends React.Component<MenuBarProps, {}> {
 
     render() {
         return (
-            <div id={'MENU_BAR'} style={{ backgroundColor: 'black', width: '100vw', position: 'absolute', top: document.documentElement.scrollTop }} className={'noselect'} >
+            <div id={'MENU_BAR'} style={{ backgroundColor: 'black', width: '100vw', position: 'fixed', top: 0 }} className={'noselect'} >
                 <div style={{ position: 'relative', top: 0, width: '100%', height: 70, backgroundColor: '#222', borderWidth: 3, borderColor: 'black', borderBottomStyle: 'solid' }}>
                     <div style={{ position: 'absolute', padding: 8 }}>
                         <img src={ICON} alt={'not found'} width={52} height={52} />

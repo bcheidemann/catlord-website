@@ -7,13 +7,15 @@ import { YerAWizardScreen } from './screens/yerawizard/yerawizard.screen';
 import { HomeScreen } from './screens/home/home.screen';
 import { DownloadsScreen } from './screens/downloads/downloads.screen';
 import { FileNotFoundScreen } from './screens/filenotfound/file.not.found.screen';
+import { BackgroundComponent } from './components/background/background.component';
 
 function App() {
   return (
     <Router>
       <div>
+        <BackgroundComponent />
         <div style={{ display: 'flex', paddingTop: 70 }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%', backgroundColor: '#111' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', width: '100%' }}>
             <div
               style={{
                 maxWidth: 1200,

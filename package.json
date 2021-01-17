@@ -18,9 +18,12 @@
     "mobx-react": "^7.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-recipes": "^1.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-transition-group": "^4.4.1",
+    "react-use": "^15.3.8",
+    "rebound": "^0.1.0",
     "semantic-ui-react": "^1.2.1",
     "typescript": "^3.9.7"
   },

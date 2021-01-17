@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.fadebkg {
+	background: linear-gradient(-45deg, #0a090a, #2e2227, #2c2835, #131817);
+	background-position-y: 0%;
+	background-size: 400% 400%;
+}
