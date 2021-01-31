@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import { useInterval, useWindowScroll } from 'react-use';
-import useSpring from 'react-use/lib/useSpring';
+import React from "react";
+import { useWindowScroll } from 'react-use';
 
 const MAX_SCROLL = 800;
 
@@ -14,17 +13,7 @@ export const BackgroundComponent: React.FC<IBackgroundComponentProps> = () => {
 
     const { y } = useWindowScroll();
 
-    const [x, setX] = useState(0);
-
-    useInterval(() => {
-        if (x === 0) {
-            setX(1);
-        } else {
-            setX(0);
-        }
-    }, 3000);
-
-    let bkgY: number = useSpring(x*100, 0.1, 20);
+    let bkgY: number = 0;
 
     const bkgX = bound((y/(MAX_SCROLL) * 100), 0, 100);
 

@@ -9,7 +9,19 @@ export class HomeScreen extends BaseScreen<HomeScreenProps, {}> {
 
     render() {
         return (
-            <div style={{ flex: 1, display: 'flex', padding: 20, paddingLeft: '10%', paddingRight: '10%', alignItems: 'center', flexDirection: 'column', textAlign: 'center' }}>
+            <div
+                style={{
+                    flex: 1,
+                    display: 'flex',
+                    padding: 20,
+                    paddingLeft: '10%',
+                    paddingRight: '10%',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    textAlign: 'center',
+                    marginBottom: '10%',
+                }}
+            >
                 <h2>Welcome to CatLord MC</h2>
                 <p>
                     CatLord MC is a (mostly) vanilla minecraft server with an emphasis on community and trade. We have players with a wide variety of skills and interests who regularly come together to collaborate on amazing projects. We take pride in ensuring that our server is a safe haven from griefers and thiefs - though we very much encourage tasteful pranking!
@@ -71,7 +83,7 @@ export class HomeScreen extends BaseScreen<HomeScreenProps, {}> {
                 <ul style={{ textAlign: 'left' }}>
                     <li>
                         <p style={{ paddingTop: 14 }}>
-                            <b>Balanced Diet.</b> With this datapack the value of a particular food decreases with each time it is consumed. If the player eats a different food the value of the other food will increase again. Food which has not been eaten before by the player has a very significant effect.
+                            <b>Balanced Diet (INACTIVE).</b> With this datapack the value of a particular food decreases with each time it is consumed. If the player eats a different food the value of the other food will increase again. Food which has not been eaten before by the player has a very significant effect.
                         </p>
                     </li>
                     <li>
@@ -89,13 +101,15 @@ export class HomeScreen extends BaseScreen<HomeScreenProps, {}> {
                             <b>Sleep.</b> This datapack alters the behaviour of vanilla Minecraft so that only one of the players present on the server has to sleep in order for night to move forward. Top tip, carry a bed or two.
                         </p>
                     </li>
+                    <li>
+                        <p style={{ paddingTop: 14 }}>
+                            <b>Mob Heads.</b> This datapack causes mobs to drop their heads when killed by a player.
+                        </p>
+                    </li>
                 </ul>
                 <h2>Mods</h2>
                 <p>
-                    We play with the 'Yer A Wizard' mod enabled. This mod was developed by our admins specifically for this server to bring magic to our world. The mod is intended to introduce useful and interesting new mechanics without being overpowered or unballancing the game. For more details go to <Link to={'/yerawizard'}>this</Link> page.
-                </p>
-                <p>
-                    <i>NOTE: the YerAWizard mod is currently in pre-alpha and is subject to change significantly. What you see on the details page is planned content and may not reflect the current implementation of the mod.</i>
+                    We play with the YerAWizard, CatCrafting and ChestFrames mods enabled. These mods were developed by our admins specifically for this server, though they are free to use. These mods are intended to introduce useful and interesting new mechanics without being overpowered or unballancing the game. For more details about these mods, follow these links to: <Link to={'/mods/yerawizard'}>YerAWizard</Link>, <Link to={'/mods/catcrafting'}>CatCrafting</Link> and <Link to={'/mods/chestframes'}>ChestFrames</Link>.
                 </p>
             </div>
         );

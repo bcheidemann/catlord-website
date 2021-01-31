@@ -131,6 +131,7 @@ export interface MenuListProps {
 
                         return (
                             <MenuItemButton
+                                key={menuItem.key}
                                 menuItem={menuItem}
                                 menuState={this.props.menuState}
                                 onPress={this.onMenuItemPressed}
