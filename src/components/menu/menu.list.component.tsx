@@ -41,6 +41,9 @@ export interface MenuListProps {
                     menuList.classList[this.props.show.get() ? 'remove' : 'add']('displace');
                 }, this.props.show.get() ? 0 : 200)
             }
+            if (this.props.show.get()) {
+                this.menuTransition();
+            }
 
         }
     );
