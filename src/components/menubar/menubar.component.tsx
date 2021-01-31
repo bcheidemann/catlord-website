@@ -1,17 +1,24 @@
 import { runInAction } from "mobx";
 import React from "react";
 import { NavigationStore } from "../../stores/navigation/navigation.store";
-import { MenuButton } from "../menubutton/menu.button.component";
 import ICON from "../../assets/icon/icon.png";
+import { menu } from "./menu";
+import { observer } from "mobx-react";
+import { Menu } from "../menu/menu.component";
 
 export interface MenuBarProps {
     location: { pathname: string };
-    subTitle?: string;
 }
 
-export class MenuBar extends React.Component<MenuBarProps, {}> {
+@observer export class MenuBar extends React.Component<MenuBarProps, {}> {
 
     private title = 'CatLord MC';
+
+    componentDidMount() {
+        runInAction(() => {
+            NavigationStore.path.set(this.props.location.pathname);
+        });
+    }
 
     componentDidUpdate() {
         runInAction(() => {
@@ -38,7 +45,9 @@ export class MenuBar extends React.Component<MenuBarProps, {}> {
                     </div>
                 </div>
                 <div style={{ position: 'absolute', right: 5, top: 10 }}>
-                    <MenuButton />
+                    <Menu
+                        menuItems={menu}
+                    />
                 </div>
             </div>
         );

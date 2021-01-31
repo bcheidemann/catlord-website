@@ -43,7 +43,7 @@ function App() {
               <Route exact={true} path="/">
                 <HomeScreen />
               </Route>
-              <Route exact={true} path="/yerawizard">
+              <Route exact={true} path="/mods/yerawizard">
                 <YerAWizardScreen />
               </Route>
               <Route exact={true} path="/downloads">

@@ -3,12 +3,19 @@ import { observer } from "mobx-react";
 import React from "react";
 import { Icon } from 'semantic-ui-react';
 import OutsideClickAlerter from "../clickalerter/clickalerter.component";
-import { MenuList } from "./menu.list.component";
+import { IMenu, IMenuItem, IMenuState, MenuList } from "./menu.list.component";
 
 export interface MenuButtonProps {
+    menu: IMenu;
+    menuState: IMenuState;
+    descendMenu: (key: IMenuItem) => void;
+    ascendMenu: () => void;
+    resetMenuState: () => void;
 }
 
-@observer export class MenuButton extends React.Component<MenuButtonProps, {}> {
+export interface MenuButtonState { }
+
+@observer export class MenuButton extends React.Component<MenuButtonProps, MenuButtonState> {
 
     private showMenu = observable.box(false);
 
@@ -20,13 +27,19 @@ export interface MenuButtonProps {
 
     private toggleMenu = () => {
         runInAction(() => {
+            if (!this.showMenu.get()) {
+                // this.props.resetMenuState();
+            }
             this.showMenu.set(!this.showMenu.get());
         });
     }
 
+    private onSelectMenuItem = (menuItem: IMenuItem) => {
+        this.hideMenu();
+    }
+
     render() {
         return (
-            // <div style={{flex: 1, justifyContent: 'center', display: 'flex'}}>
             <>
                 <OutsideClickAlerter cb={this.hideMenu}>
                     <div style={{ width: 300, height: 50 }}>
@@ -62,13 +75,17 @@ export interface MenuButtonProps {
                             </div>
                         </div>
 
-                        {/* {this.showMenu.get() && */}
-                        <MenuList hideMenu={this.hideMenu} show={this.showMenu} />
-                        {/* } */}
+                        <MenuList
+                            menu={this.props.menu}
+                            menuState={this.props.menuState}
+                            onSelectMenuItem={this.onSelectMenuItem}
+                            ascendMenu={this.props.ascendMenu}
+                            descendMenu={this.props.descendMenu}
+                            show={this.showMenu}
+                        />
                     </div>
                 </OutsideClickAlerter>
             </>
-            // </div>
         );
     }
 }

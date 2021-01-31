@@ -17,3 +17,31 @@ code {
 	background-position-y: 0%;
 	background-size: 400% 400%;
 }
+
+@keyframes menunext {
+  from {
+    padding-left: 0;
+  }
+  to {
+    padding-left: 10;
+  }
+}
+
+@keyframes menunextinternal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.menunext {
+  animation-name: menunext;
+  animation-duration: 200ms;
+}
+
+.menunextinternal {
+  animation-name: menunextinternal;
+  animation-duration: 200ms;
+}
