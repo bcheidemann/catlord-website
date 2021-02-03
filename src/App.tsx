@@ -10,6 +10,7 @@ import { FileNotFoundScreen } from './screens/filenotfound/file.not.found.screen
 import { BackgroundComponent } from './components/background/background.component';
 import { CatCraftingScreen } from './screens/mods/catcrafting/catcrafting.screen';
 import { ChestFramesScreen } from './screens/mods/chestframes/chestframes.screen';
+import { MapScreen } from './screens/map/map.screen';
 
 function App() {
   return (
@@ -42,8 +43,11 @@ function App() {
               <Route exact={true} path="/404">
                 <FileNotFoundScreen />
               </Route>
-              <Route exact={true} path="/">
+              <Route exact={true} path={["/", "/map"]}>
                 <HomeScreen />
+              </Route>
+              <Route exact={true} path="/map">
+                <MapScreen />
               </Route>
               <Route exact={true} path="/mods/yerawizard">
                 <YerAWizardScreen />

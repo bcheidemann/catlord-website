@@ -25,6 +25,11 @@ export const menu: IMenu = [
         route: '/',
     },
     {
+        key: 'Map',
+        name: 'Map',
+        route: '/map',
+    },
+    {
         key: 'Bulletin',
         name: 'Bulletin',
         route: '/bulletin',

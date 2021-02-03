@@ -45,3 +45,35 @@ code {
   animation-name: menunextinternal;
   animation-duration: 200ms;
 }
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.fadebtn:hover {
+  color: white;
+}
+
+.fadebtn {
+  color: #AAA;
+}
+
+@keyframes fadeinmap {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fadeinmapdiv {
+  animation-name: fadeinmap;
+  animation-duration: 200ms;
+}
