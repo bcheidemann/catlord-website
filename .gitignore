@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 files/*
 serverinfo.txt
+
+# environment variables
+/config/config.env
