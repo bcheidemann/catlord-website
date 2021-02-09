@@ -1,19 +1,29 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-const fs = require('fs')
 const dotenv = require('dotenv')
-const aws = require('aws-sdk');
-const rateLimit = require("express-rate-limit");
-
-// const multer = require('multer');
-// const multerS3 = require('multer-s3');
+const path = require('path');
 
 const { error } = dotenv.config({ path: path.join(__dirname, 'config', 'config.env') });
 
 if (error) {
     throw error;
 }
+
+const express = require('express');
+const fs = require('fs')
+const aws = require('aws-sdk');
+const rateLimit = require("express-rate-limit");
+var bodyParser = require('body-parser')
+var { jwtAuthenticationMiddleware, isAuthenticatedMiddleware } = require('./server/src/middleware/middleware');
+var users = require('./server/src/users/users');
+var jwt = require('./server/src/middleware/jwt');
+
+const app = express();
+
+var jsonParser = bodyParser.json();
+// var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+
+// const multer = require('multer');
+// const multerS3 = require('multer-s3');
 
 
 // Set S3 endpoint to DigitalOcean Spaces
@@ -77,7 +87,11 @@ app.use("/files/", rateLimiter);
 
 
 // http://localhost:9000/files/mods/catcrafting/CatCrafting-0.0.1-mc1.16.3.jar
-app.get('/files/*', function (req, res) {
+app.get('/files/*', jwtAuthenticationMiddleware, function (req, res) {
+
+    if (!req.user) {
+        return res.sendFile(path.join(__dirname, 'build', 'index.html'));
+    }
 
     var Key = req.url.replace('/files/', '');
 
@@ -99,6 +113,26 @@ app.get('/files/*', function (req, res) {
     });
 
     return;
+});
+
+app.post('/login', jsonParser, async function (req, res) {
+    let { username, password } = req.body;
+
+    const user = await users.userLogin(username, password);
+
+    if (!user) {
+        res.status(401);
+        return res.json({ error: 'Invalid username or password' });
+    }
+
+    const accessToken = jwt.encodeToken({ userId: user.id });
+    return res.json({ accessToken });
+});
+
+app.get('/me', jwtAuthenticationMiddleware, isAuthenticatedMiddleware, function (req, res) {
+    res.json({
+        user: req.user,
+    });
 });
 
 app.get('/*', function (req, res) {
