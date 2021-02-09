@@ -110,6 +110,8 @@ app.get('/files/*', jwtAuthenticationMiddleware, function (req, res) {
             res.setHeader('Content-Type', data.ContentType);
             res.send(data.Body);
         }
+    }).on('httpDownloadProgress', (progress, response) => {
+        // console.log(`${Math.floor(parseInt(progress.loaded) * 100 / parseInt(progress.total))}%`);
     });
 
     return;

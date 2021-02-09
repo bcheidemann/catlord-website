@@ -11,6 +11,8 @@ import { BackgroundComponent } from './components/background/background.componen
 import { CatCraftingScreen } from './screens/mods/catcrafting/catcrafting.screen';
 import { ChestFramesScreen } from './screens/mods/chestframes/chestframes.screen';
 import { MapScreen } from './screens/map/map.screen';
+import { LoginScreen } from './screens/login/login.screen';
+import { FilesScreen } from './screens/files/files.screen';
 
 function App() {
   return (
@@ -43,6 +45,9 @@ function App() {
               <Route exact={true} path="/404">
                 <FileNotFoundScreen />
               </Route>
+              <Route exact={false} path="/files">
+                <FilesScreen />
+              </Route>
               <Route exact={true} path={["/", "/map"]}>
                 <HomeScreen />
               </Route>
@@ -60,6 +65,9 @@ function App() {
               </Route>
               <Route exact={true} path="/downloads">
                 <DownloadsScreen />
+              </Route>
+              <Route exact={true} path="/login">
+                <LoginScreen />
               </Route>
             </div>
           </div>

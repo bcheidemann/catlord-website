@@ -26,3 +26,4 @@ serverinfo.txt
 
 # environment variables
 /config/config.env
+src/config/config.ts
