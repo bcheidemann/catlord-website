@@ -13,6 +13,7 @@ import { ChestFramesScreen } from './screens/mods/chestframes/chestframes.screen
 import { MapScreen } from './screens/map/map.screen';
 import { LoginScreen } from './screens/login/login.screen';
 import { FilesScreen } from './screens/files/files.screen';
+import { CreateUserScreen } from './screens/createuser/createuser.screen';
 
 function App() {
   return (
@@ -68,6 +69,9 @@ function App() {
               </Route>
               <Route exact={true} path="/login">
                 <LoginScreen />
+              </Route>
+              <Route exact={true} path="/createuser">
+                <CreateUserScreen />
               </Route>
             </div>
           </div>

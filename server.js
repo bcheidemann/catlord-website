@@ -81,6 +81,23 @@ app.post('/login', jsonParser, async function (req, res) {
     return res.json({ accessToken });
 });
 
+app.post('/createuser', jsonParser, jwtAuthenticationMiddleware, async function (req, res) {
+
+    if (!req.user || req.user.roles !== 'admin') {
+        return res.sendStatus(401);
+    }
+
+    let { username, password } = req.body;
+
+    if (!username || !password) {
+        return res.sendStatus(400);
+    }
+
+    const created = await users.createUser(username, password);
+
+    res.json({created});
+});
+
 app.get('/me', jwtAuthenticationMiddleware, isAuthenticatedMiddleware, function (req, res) {
     res.json({
         user: req.user,

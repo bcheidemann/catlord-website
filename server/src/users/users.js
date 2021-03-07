@@ -21,11 +21,15 @@ var catDb;
 //     password: 'sha1$a2f54e6d$1$d38eef56a4d49568533427fe1a4c79295ee306fc', // 'password'
 // }];
 
-async function getAllUsers() {
-    
+async function waitForCatDb() {
     if (!catDb) {
         catDb = await database.connect(databaseConfig);
     }
+}
+
+async function getAllUsers() {
+
+    await waitForCatDb();
 
     var users = await new Promise(function (resolve, reject) {
         catDb.query("SELECT * FROM users", function (err, result, fields) {
@@ -56,6 +60,45 @@ exports.userLogin = async function (username, password) {
 
     if (user && passwordHash.verify(password, user.password)) {
         return user;
+    }
+
+}
+
+exports.createUser = async function (username, password) {
+
+    await waitForCatDb();
+
+    var users = await getAllUsers();
+
+    const user = users.find(user => user.username === username);
+
+    if (user) {
+        return false;
+    }
+
+    const id = Math.floor(Math.random() * Math.pow(10, 10));
+    const hashedPwd = passwordHash.generate(password);
+
+    try {
+
+        await new Promise(function (resolve, reject) {
+            catDb.query(`INSERT INTO users (id, username, password, roles) VALUES (${id},'${username}','${hashedPwd}','user');`, function (error, results, fields) {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+
+        return true;
+
+    }
+
+    catch (error) {
+        
+        console.error('Error creating user:', error);
+        return false;
+
     }
 
 }
