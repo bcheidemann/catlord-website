@@ -98,6 +98,23 @@ app.post('/createuser', jsonParser, jwtAuthenticationMiddleware, async function 
     res.json({created});
 });
 
+app.post('/updateuser', jsonParser, jwtAuthenticationMiddleware, async function (req, res) {
+
+    if (!req.user) {
+        return res.sendStatus(401);
+    }
+
+    let { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || !newPassword) {
+        return res.sendStatus(400);
+    }
+
+    const updated = await users.updateUser(req.user, oldPassword, newPassword);
+
+    res.json({updated});
+});
+
 app.get('/me', jwtAuthenticationMiddleware, isAuthenticatedMiddleware, function (req, res) {
     res.json({
         user: req.user,

@@ -14,6 +14,7 @@ import { MapScreen } from './screens/map/map.screen';
 import { LoginScreen } from './screens/login/login.screen';
 import { FilesScreen } from './screens/files/files.screen';
 import { CreateUserScreen } from './screens/createuser/createuser.screen';
+import { ManagementScreen } from './screens/management/management.screen';
 
 function App() {
   return (
@@ -72,6 +73,9 @@ function App() {
               </Route>
               <Route exact={true} path="/createuser">
                 <CreateUserScreen />
+              </Route>
+              <Route exact={true} path="/management">
+                <ManagementScreen />
               </Route>
             </div>
           </div>

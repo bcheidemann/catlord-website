@@ -45,12 +45,14 @@ async function getAllUsers() {
 
 exports.getAllUsers = getAllUsers;
 
-exports.findUser = async function (userId) {
+async function findUser (userId) {
 
     var users = await getAllUsers();
 
     return users.find(user => user.id === userId);
 }
+
+exports.findUser = findUser
 
 exports.userLogin = async function (username, password) {
 
@@ -97,6 +99,43 @@ exports.createUser = async function (username, password) {
     catch (error) {
         
         console.error('Error creating user:', error);
+        return false;
+
+    }
+
+}
+
+exports.updateUser = async function (user, oldPassword, newPassword) {
+
+    await waitForCatDb();
+
+    // Get the user record with the password
+    var user = await findUser(user.id);
+
+    if (!passwordHash.verify(oldPassword, user.password)) {
+        return false;
+    }
+
+    const hashedPwd = passwordHash.generate(newPassword);
+
+    try {
+
+        await new Promise(function (resolve, reject) {
+            catDb.query(`UPDATE users SET password='${hashedPwd}' WHERE id=${user.id};`, function (error, results, fields) {
+                if (error) {
+                    reject(error);
+                }
+                resolve();
+            });
+        });
+
+        return true;
+
+    }
+
+    catch (error) {
+        
+        console.error('Error updating user:', error);
         return false;
 
     }
