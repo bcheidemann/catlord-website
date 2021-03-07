@@ -1,9 +1,19 @@
 import React from "react";
+import { LoginStore } from "../stores/login/login.store";
 
 export class BaseScreen<T, S={}> extends React.Component<T, S> {
     private scrollInterval!: NodeJS.Timeout;
 
     componentDidMount() {
+
+        // If we've been logged in before but the token has expired then
+        // clear the token and redirect to /login
+        if (LoginStore.getAccessToken() && !LoginStore.hasValidToken()) {
+            LoginStore.clearAccessToken();
+            window.location.replace('/login');
+        }
+
+
         let lastScrollTop = {
             body: document.body.scrollTop,
             documentElement: document.documentElement.scrollTop,

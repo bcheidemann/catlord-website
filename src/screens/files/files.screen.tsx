@@ -43,6 +43,23 @@ export interface FilesScreenProps {
                                 onClick={() => {
                                     HTTP.get(CONFIG.API_BASE_URL + NavigationStore.path.get())
                                         .set({ 'Access-Token': LoginStore.getAccessToken() })
+                                        .end((err, res) => {
+                                            const { signedUrl } = res.body;
+                                            const link = document.createElement('a');
+                                            link.href = signedUrl;
+                                            link.target = '_blank';
+                                            document.body.appendChild(link);
+                                            link.click();
+                                            link.remove();
+                                        })
+
+                                }}
+                            />
+                            {/* <Button
+                                content={`Download ${NavigationStore.path.get()}`}
+                                onClick={() => {
+                                    HTTP.get(CONFIG.API_BASE_URL + NavigationStore.path.get())
+                                        .set({ 'Access-Token': LoginStore.getAccessToken() })
                                         .on('progress', (event) => {
                                             console.log(event);
                                         })
@@ -62,7 +79,7 @@ export interface FilesScreenProps {
                                         })
 
                                 }}
-                            />
+                            /> */}
                         </Note>
 
                     </>

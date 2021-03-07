@@ -19,6 +19,7 @@ export class LoginScreen extends BaseScreen<LoginScreenProps, {}> {
     }
 
     render() {
+        const validToken = LoginStore.hasValidToken();
         return (
             <div
                 style={{
@@ -30,14 +31,14 @@ export class LoginScreen extends BaseScreen<LoginScreenProps, {}> {
                     flexDirection: 'column',
                 }}
             >
-                {LoginStore.getAccessToken() &&
+                {validToken &&
                     <Note
                         style={{ backgroundColor: 'green', padding: 16, borderRadius: 8 }}
                     >
                         Logged in.
                     </Note>
                 }
-                {!LoginStore.getAccessToken() &&
+                {!validToken &&
                     <Note
                         style={{ backgroundColor: 'lightgray', padding: 16, borderRadius: 8 }}
                     >
