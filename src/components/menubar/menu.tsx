@@ -55,4 +55,9 @@ export const menu: IMenu = [
         name: 'Downloads',
         route: '/downloads',
     },
+    {
+        key: 'Login',
+        name: 'Login',
+        route: '/login',
+    },
 ];
