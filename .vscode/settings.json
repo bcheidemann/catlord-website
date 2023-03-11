@@ -1,0 +1,9 @@
+{
+  // Make sure fixtures don't get formatted by accident while working on them
+  "[astro]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": false,
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false
+  }
+}
