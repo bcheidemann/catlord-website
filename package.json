@@ -1,67 +1,15 @@
 {
-  "name": "my-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@south-paw/typeface-minecraft": "^1.0.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.9.1",
-    "@types/node": "^12.12.54",
-    "@types/react": "^16.9.46",
-    "@types/react-dom": "^16.9.8",
-    "@types/react-router-dom": "^5.1.6",
-    "@types/react-transition-group": "^4.4.0",
-    "@types/superagent": "^4.1.10",
-    "aws-sdk": "^2.839.0",
-    "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-rate-limit": "^5.2.5",
-    "jsonwebtoken": "^8.5.1",
-    "mobx": "^6.0.0",
-    "mobx-react": "^7.0.0",
-    "multer": "^1.4.2",
-    "multer-s3": "^2.9.0",
-    "mysql": "^2.18.1",
-    "njwt": "^1.0.0",
-    "password-hash": "^1.2.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-recipes": "^1.1.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
-    "react-transition-group": "^4.4.1",
-    "react-use": "^15.3.8",
-    "rebound": "^0.1.0",
-    "semantic-ui-react": "^1.2.1",
-    "superagent": "^6.1.0",
-    "typescript": "^3.9.7"
-  },
+  "name": "",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "update": "git pull && npm run build",
-    "server": "npm run build && node server.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "gentypes": "python ./src/scripts/generate_icon_types.py",
-    "renamedir": "python ./src/scripts/rename_helper.py"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "astro": "^2.0.18"
   }
 }
