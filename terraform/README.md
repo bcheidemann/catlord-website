@@ -10,3 +10,10 @@ To run terraform locally, follow these steps:
 6. Run `terraform init`
 7. Run `terraform plan` to check that things are working as expected
 8. Run `terraform apply` when you're ready to apply changes
+
+## Uploading the static site
+
+1. Run `npm run build` to build the static site
+2. Run `cd dist` to enter the build directoy
+3. Set the environment varialbes from above
+4. Run `aws s3 sync . s3://catlord-static-site` to upload the build atrifacts

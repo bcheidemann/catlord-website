@@ -9,7 +9,7 @@ variable "servers" {
     "creative" = {
       ip = "54.37.244.200"
     },
-    "race"     = {
+    "race" = {
       ip = "54.37.244.200"
     }
   }
