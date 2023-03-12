@@ -26,7 +26,7 @@
     "prettier-plugin-astro": "^0.8.0"
   },
   "lint-staged": {
-    "*.{mjs,js,ts,astro}": [
+    "*.{mjs,js,ts,astro,yml,yaml,md}": [
       "npm run format",
       "npm run lint"
     ],
