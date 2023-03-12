@@ -85,12 +85,14 @@ jobs:
         working-directory: terraform
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key_id }}
+          AWS_DEFAULT_REGION: ${{ secrets.aws_default_region }}
         run: terraform init
 
       - name: Terraform Plan
         working-directory: terraform
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key_id }}
+          AWS_DEFAULT_REGION: ${{ secrets.aws_default_region }}
         run: terraform plan
