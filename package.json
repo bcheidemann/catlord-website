@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "catlord-website",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,13 +9,29 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier --write .",
-    "lint": "prettier --check ."
+    "lint": "prettier --check .",
+    "action-validator": "node scripts/action-validator.mjs",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "astro": "^2.0.18"
+    "astro": "^2.0.18",
+    "lint-staged": "^13.2.0"
   },
   "devDependencies": {
+    "@action-validator/cli": "^0.5.1",
+    "@action-validator/core": "^0.5.1",
+    "chalk": "^5.2.0",
+    "husky": "^8.0.3",
     "prettier": "^2.8.4",
     "prettier-plugin-astro": "^0.8.0"
+  },
+  "lint-staged": {
+    "*.{mjs,js,ts,astro}": [
+      "npm run format",
+      "npm run lint"
+    ],
+    ".github/workflows/*.{yml,yaml}": [
+      "npm run action-validator"
+    ]
   }
 }
