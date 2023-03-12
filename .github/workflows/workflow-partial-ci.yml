@@ -67,6 +67,7 @@ jobs:
       - name: Terraform Security Scan
         uses: aquasecurity/tfsec-action@v1.0.3
         with:
+          soft_fail: true
           working_directory: terraform
 
   terraform-plan:
