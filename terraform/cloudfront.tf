@@ -15,6 +15,7 @@ resource "aws_cloudfront_distribution" "catlord_static_site_distribution" {
   enabled             = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
+  web_acl_id          = aws_wafv2_web_acl.catlord.arn
 
   aliases = [
     "catlord.co.uk",
@@ -57,6 +58,12 @@ resource "aws_cloudfront_distribution" "catlord_static_site_distribution" {
   viewer_certificate {
     acm_certificate_arn      = aws_acm_certificate_validation.catlord_static_site_cert_validation.certificate_arn
     ssl_support_method       = "sni-only"
-    minimum_protocol_version = "TLSv1.1_2016"
+    minimum_protocol_version = "TLSv1.2_2021"
+  }
+
+  logging_config {
+    include_cookies = false
+    bucket          = "${aws_s3_bucket.logging_bucket.bucket}.s3.amazonaws.com"
+    prefix          = "aws_cloudfront_distribution/catlord_static_site_distribution/"
   }
 }
