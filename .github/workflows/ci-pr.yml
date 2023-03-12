@@ -1,0 +1,14 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  ci:
+    if: ${{ github.ref != 'refs/heads/main' && github.ref != 'main' }}
+    uses: ./.github/workflows/workflow-partial-ci.yml
+    secrets: inherit
+    with:
+      deploy: false

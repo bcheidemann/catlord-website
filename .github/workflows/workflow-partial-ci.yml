@@ -1,0 +1,87 @@
+
+name: Workflow Partial - CI
+
+on:
+  workflow_call:
+    inputs:
+      deploy:
+        required: true
+        type: boolean
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          always-auth: true
+          node-version-file: .nvmrc
+
+      - name: Node Modules Cache
+        id: node_modules_cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            node_modules-
+
+      - name: Install
+        if: ${{ steps.node_modules_cache.outputs.cache-hit != 'true' }}
+        run: npm ci
+
+  lint:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+
+      - name: Node Modules Cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            node_modules-
+
+      - name: Run Lint
+        run: npm run lint
+
+  terraform-plan:
+    needs: [install]
+    if: ${{ !inputs.deploy }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key_id }}
+        run: terraform init
+      
+      - name: Terraform Security Scan
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: terraform
+
+      - name: Terraform Plan
+        working-directory: terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key_id }}
+        run: terraform plan
