@@ -56,6 +56,19 @@ jobs:
 
       - name: Run Lint
         run: npm run lint
+  
+  terraform-security-scan:
+    needs: [install]
+    if: ${{ !inputs.deploy }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Terraform Security Scan
+        uses: aquasecurity/tfsec-action@v1.0.3
+        with:
+          working_directory: terraform
 
   terraform-plan:
     needs: [install]
@@ -73,11 +86,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_access_key_id }}
         run: terraform init
-      
-      - name: Terraform Security Scan
-        uses: aquasecurity/tfsec-action@v1.0.3
-        with:
-          working_directory: terraform
 
       - name: Terraform Plan
         working-directory: terraform
