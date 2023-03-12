@@ -50,8 +50,7 @@ jobs:
         with:
           path: node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-          restore-keys: |
-            node_modules-
+          restore-keys: node_modules-
 
       - name: Run Lint
         run: npm run lint
@@ -96,3 +95,65 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key_id }}
           AWS_DEFAULT_REGION: ${{ secrets.aws_default_region }}
         run: terraform plan
+
+  terraform-apply:
+    needs: [install]
+    if: ${{ inputs.deploy }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        working-directory: terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key_id }}
+          AWS_DEFAULT_REGION: ${{ secrets.aws_default_region }}
+        run: terraform init
+
+      - name: Terraform Apply
+        working-directory: terraform
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key_id }}
+          AWS_DEFAULT_REGION: ${{ secrets.aws_default_region }}
+        run: terraform apply -input=false -auto-approve
+
+  build:
+    needs: [install]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version-file: .nvmrc
+
+      - name: Node Modules Cache
+        uses: actions/cache@v3
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFiles('package-lock.json') }}
+          restore-keys: node_modules-
+
+      - name: Run Build
+        run: npm run build
+
+      - name: Setup AWS CLI
+        if: ${{ inputs.deploy }}
+        uses: unfor19/install-aws-cli-action@v1
+
+      - name: Deploy
+        if: ${{ inputs.deploy }}
+        working-directory: dist
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.aws_access_key_id }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.aws_secret_access_key_id }}
+          AWS_DEFAULT_REGION: ${{ secrets.aws_default_region }}
+        run: aws s3 sync . s3://catlord-static-site
