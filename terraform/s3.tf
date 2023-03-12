@@ -1,3 +1,60 @@
+# ===================== Logging bucket =====================
+# See https://aquasecurity.github.io/tfsec/v1.28.1/checks/aws/s3/enable-bucket-logging/
+resource "aws_s3_bucket" "logging_bucket" {
+  bucket = "catlord-logging"
+
+  tags = {
+    Name        = "Logging Bucket"
+    Environment = "production"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "aws_s3_bucket_acl" "logging_bucket_acl" {
+  bucket = aws_s3_bucket.logging_bucket.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "logging_bucket_server_side_encryption_configuration" {
+  bucket = aws_s3_bucket.logging_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.logging_bucket_key.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "logging_bucket_public_access_block" {
+  bucket                  = aws_s3_bucket.logging_bucket.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_logging" "logging_bucket_logging" {
+  bucket = aws_s3_bucket.logging_bucket.id
+
+  target_bucket = aws_s3_bucket.logging_bucket.id
+  target_prefix = "aws_s3_bucket/logging_bucket_logging/"
+}
+
+resource "aws_s3_bucket_versioning" "logging_bucket_versioning" {
+  bucket = aws_s3_bucket.logging_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
 # ===================== Terraform state S3 backend =====================
 # NOTE: This needs to exist before using it as a backend, so if you're
 #       re-creating the infrastructure, you'll need to comment out the
@@ -19,10 +76,33 @@ resource "aws_s3_bucket" "terraform_state" {
 resource "aws_s3_bucket_acl" "terraform_state_acl" {
   bucket = aws_s3_bucket.terraform_state.id
   acl    = "private"
+}
 
-  lifecycle {
-    prevent_destroy = true
+resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state_server_side_encryption_configuration" {
+  bucket = aws_s3_bucket.terraform_state.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.terraform_state_key.arn
+      sse_algorithm     = "aws:kms"
+    }
   }
+}
+
+resource "aws_s3_bucket_public_access_block" "terraform_state_public_access_block" {
+  bucket = aws_s3_bucket.terraform_state.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_logging" "terraform_state_logging" {
+  bucket = aws_s3_bucket.terraform_state.id
+
+  target_bucket = aws_s3_bucket.logging_bucket.id
+  target_prefix = "aws_s3_bucket/terraform_state_logging/"
 }
 
 resource "aws_s3_bucket_versioning" "terraform_state_versioning" {
@@ -48,7 +128,40 @@ resource "aws_s3_bucket" "catlord_static_site" {
 
 resource "aws_s3_bucket_acl" "catlord_static_site_acl" {
   bucket = aws_s3_bucket.catlord_static_site.id
-  acl    = "public-read"
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "catlord_static_site_server_side_encryption_configuration" {
+  bucket = aws_s3_bucket.catlord_static_site.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.static_site_bucket_key.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "catlord_static_site_public_access_block" {
+  bucket                  = aws_s3_bucket.catlord_static_site.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+
+resource "aws_s3_bucket_logging" "catlord_static_site_logging" {
+  bucket = aws_s3_bucket.catlord_static_site.id
+
+  target_bucket = aws_s3_bucket.logging_bucket.id
+  target_prefix = "aws_s3_bucket/catlord_static_site_logging/"
+}
+
+resource "aws_s3_bucket_versioning" "catlord_static_site_versioning" {
+  bucket = aws_s3_bucket.catlord_static_site.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_s3_bucket_policy" "catlord_static_site_policy" {
