@@ -54,7 +54,6 @@ const { title } = Astro.props;
   setTimeout(() => {
     (function increaseStiffness() {
       stiffness += 0.0001;
-      console.log(stiffness);
 
       if (stiffness >= 0.04) {
         return;
