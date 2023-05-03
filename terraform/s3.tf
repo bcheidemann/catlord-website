@@ -117,6 +117,8 @@ resource "aws_s3_bucket_versioning" "terraform_state_versioning" {
 }
 
 # ===================== Static Site =====================
+# TODO: See "aws_s3_bucket_server_side_encryption_configuration" below
+# tfsec:ignore:aws-s3-enable-bucket-encryption tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket" "catlord_static_site" {
   bucket = "catlord-static-site"
 
@@ -131,23 +133,25 @@ resource "aws_s3_bucket_acl" "catlord_static_site_acl" {
   acl    = "private"
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "catlord_static_site_server_side_encryption_configuration" {
-  bucket = aws_s3_bucket.catlord_static_site.id
+# TODO: Configure cloudfront to use the KMS key
+# resource "aws_s3_bucket_server_side_encryption_configuration" "catlord_static_site_server_side_encryption_configuration" {
+#   bucket = aws_s3_bucket.catlord_static_site.id
 
-  rule {
-    apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.static_site_bucket_key.arn
-      sse_algorithm     = "aws:kms"
-    }
-  }
-}
+#   rule {
+#     apply_server_side_encryption_by_default {
+#       kms_master_key_id = aws_kms_key.static_site_bucket_key.arn
+#       sse_algorithm     = "aws:kms"
+#     }
+#   }
+# }
 
 resource "aws_s3_bucket_public_access_block" "catlord_static_site_public_access_block" {
   bucket                  = aws_s3_bucket.catlord_static_site.id
   block_public_acls       = true
   block_public_policy     = true
   ignore_public_acls      = true
-  restrict_public_buckets = true
+  # TODO: Use aws_s3_bucket_policy to restrict access to the bucket to only CloudFront
+  restrict_public_buckets = false # tfsec:ignore:aws-s3-no-public-buckets
 }
 
 resource "aws_s3_bucket_logging" "catlord_static_site_logging" {
