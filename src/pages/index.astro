@@ -1,62 +1,8 @@
 ---
+import { Home } from "../components/pages/home/Home";
 import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="Welcome to CatLord">
-  <main>
-    <div class="content">
-      <img src="/logo.png" width="256px" height="256px" alt="CatLord Logo" />
-      <h1>Welcome to <span class="accent">CatLord</span></h1>
-      <p class="instructions">
-        The CatLord website is down for maintenance. Please check back later.
-      </p>
-    </div>
-  </main>
+  <Home client:load />
 </Layout>
-
-<style>
-  main {
-    min-height: 100vh;
-    margin: auto;
-    max-width: 60ch;
-    color: white;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .content {
-    padding: 24px;
-  }
-  h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    margin: 0;
-  }
-  .accent {
-    color: var(--accent);
-  }
-  .instructions {
-    line-height: 1.6;
-    margin: 1rem 0;
-    border: 2px solid rgba(var(--accent-rgb), 12.5%);
-    background-color: #151517;
-    padding: 1rem;
-    border-radius: 0.4rem;
-    background-image: linear-gradient(
-      45deg,
-      transparent 40%,
-      rgba(var(--accent-rgb), 25%) 50%,
-      transparent 60%
-    );
-    background-repeat: no-repeat;
-    background-position-x: -80ch;
-    cursor: default;
-    transition: border 0.2s ease-in-out;
-  }
-  .instructions:hover {
-    transition: background-position-x 0.5s linear, border 0.2s ease-in-out;
-    background-position-x: 80ch;
-    border: 2px solid rgba(var(--accent-rgb), 25%);
-  }
-</style>

@@ -16,17 +16,84 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    <div class="overlay-gradient-1"></div>
+    <div class="overlay-gradient-2"></div>
     <slot />
+    <div class="fade-in-overlay"></div>
   </body>
 </html>
-<style is:global>
+
+<script>
+  import _debounce from "lodash/debounce";
+
+  const flexibility = 30;
+  let stiffness = 0.005;
+  let target = 0.35;
+  let current = 1.5;
+
+  (function frame() {
+    const clientWidth = document.documentElement.clientWidth;
+    const clientHeight = document.documentElement.clientHeight;
+
+    // TODO: Account for ellapsed time
+    current += (target - current) * stiffness;
+
+    const rotation = 90 + current * flexibility;
+    const position =
+      0 - (current * 25 * (clientHeight / 1328)) / (clientWidth / 2560);
+
+    document.documentElement.style.setProperty(
+      "--bg-rotation",
+      `${rotation}deg`
+    );
+    document.documentElement.style.setProperty("--bg-position", `${position}%`);
+
+    window.requestAnimationFrame(frame);
+  })();
+
+  setTimeout(() => {
+    (function increaseStiffness() {
+      stiffness += 0.0001;
+      console.log(stiffness);
+
+      if (stiffness >= 0.04) {
+        return;
+      }
+
+      window.requestAnimationFrame(increaseStiffness);
+    })();
+
+    window.addEventListener("mousemove", (event) => {
+      const clientWidth = document.documentElement.clientWidth;
+
+      const clientX = event.clientX;
+      const clientY = event.clientY;
+
+      const m = clientY / (clientX - clientWidth);
+      const angle = (Math.atan(m) * 180) / Math.PI;
+
+      target = (90 - Math.abs(angle)) / 90;
+    });
+  }, 2000);
+</script>
+
+<style is:global id="test">
+  @property --ripple-offset {
+    initial-value: 0%;
+    inherits: true;
+    syntax: "<percentage>";
+  }
+
   :root {
     --accent: #40f321;
     --accent-rgb: 64, 243, 33;
+    --bg-rotation: 120deg;
+    --bg-position: 0%;
+    --ripple-offset: 0%;
   }
   html {
     font-family: system-ui, sans-serif;
-    background-color: black;
+    background-color: white;
   }
   body {
     margin: unset;
@@ -34,5 +101,190 @@ const { title } = Astro.props;
   code {
     font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
       DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+</style>
+<style>
+  .fade-in-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    animation: fade-out 1s ease-in-out forwards;
+    animation-delay: 0.1s;
+    background: black;
+    pointer-events: none;
+  }
+  body {
+    background-image: url(/mountain.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: bottom center;
+  }
+  body:after {
+    z-index: -1;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    backdrop-filter: blur(5px);
+  }
+
+  body:before {
+    z-index: -2;
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+      var(--bg-rotation),
+      rgba(2, 0, 36, 1) calc(0% + var(--bg-position) * 0),
+      rgb(149, 13, 190) calc(15% + var(--bg-position) * 0.18),
+      rgb(149, 13, 190) calc(15% + 1% + var(--bg-position) * 0.18),
+      rgba(49, 19, 69, 1) calc(24% + var(--bg-position) * 0.24),
+      rgba(49, 19, 69, 1) calc(24% + 1% + var(--bg-position) * 0.24),
+      rgba(190, 21, 188, 1) calc(38% + var(--bg-position) * 0.34),
+      rgba(190, 21, 188, 1) calc(38% + 1% + var(--bg-position) * 0.34),
+      rgba(14, 19, 43, 1) calc(63% + var(--bg-position) * 0.63),
+      rgba(14, 19, 43, 1) calc(63% + 1% + var(--bg-position) * 0.63),
+      rgba(0, 212, 255, 1) calc(82% + var(--bg-position) * 0.82),
+      rgba(0, 212, 255, 1) calc(82% + 1% + var(--bg-position) * 0.82),
+      rgba(3, 46, 55, 1) calc(100% + var(--bg-position) * 1)
+    );
+    background-position: 0% 50%;
+  }
+
+  .overlay-gradient-1 {
+    z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 1) calc(0% + var(--ripple-offset) - 40%),
+      rgba(0, 0, 0, 0.7) calc(10% + var(--ripple-offset) * 1.1 - 40%),
+      rgba(0, 0, 0, 0.7) calc(10% + 1% + var(--ripple-offset) * 1.1 - 40%),
+      rgba(0, 0, 0, 1) calc(16% + var(--ripple-offset) * 1.2 - 40%),
+      rgba(0, 0, 0, 1) calc(16% + 1% + var(--ripple-offset) * 1.2 - 40%),
+      rgba(0, 0, 0, 0) calc(27% + var(--ripple-offset) * 1.3 - 40%),
+      rgba(0, 0, 0, 0) calc(27% + 1% + var(--ripple-offset) * 1.3 - 40%),
+      rgba(0, 0, 0, 1) calc(41% + var(--ripple-offset) * 1.4 - 40%),
+      rgba(0, 0, 0, 1) calc(41% + 1% + var(--ripple-offset) * 1.4 - 40%),
+      rgba(0, 0, 0, 0.65) calc(50% + var(--ripple-offset) * 1.5 - 40%),
+      rgba(0, 0, 0, 0.65) calc(50% + 1% + var(--ripple-offset) * 1.5 - 40%),
+      rgba(0, 0, 0, 1) calc(55% + var(--ripple-offset) * 1.6 - 40%),
+      rgba(0, 0, 0, 1) calc(55% + 1% + var(--ripple-offset) * 1.6 - 40%),
+      rgba(0, 0, 0, 0.35) calc(77% + var(--ripple-offset) * 1.7 - 40%),
+      rgba(0, 0, 0, 0.35) calc(77% + 1% + var(--ripple-offset) * 1.7 - 40%),
+      rgba(0, 0, 0, 0.56) calc(90% + var(--ripple-offset) * 1.8 - 40%),
+      rgba(0, 0, 0, 0.56) calc(90% + 1% + var(--ripple-offset) * 1.8 - 40%),
+      rgba(0, 0, 0, 0) calc(100% + var(--ripple-offset) * 1.9 - 40%)
+    );
+    background-position: center;
+  }
+
+  /* Best we can do for detecting support for @property. See https://web.dev/at-property/ */
+  @supports (background: paint(something)) {
+    .overlay-gradient-1 {
+      animation: overlay-gradient 16s linear infinite;
+    }
+  }
+
+  @supports not (background: paint(something)) {
+    .overlay-gradient-1 {
+      opacity: 0.35;
+      --ripple-offset: 15%;
+    }
+  }
+
+  .overlay-gradient-2 {
+    z-index: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    @supports not (background: paint(something)) {
+      opacity: 0.35;
+      --ripple-offset: 45%;
+    }
+
+    background: radial-gradient(
+      circle,
+      rgba(0, 0, 0, 1) calc(0% + var(--ripple-offset) - 40%),
+      rgba(0, 0, 0, 0.7) calc(10% + var(--ripple-offset) * 1.1 - 40%),
+      rgba(0, 0, 0, 0.7) calc(10% + 1% + var(--ripple-offset) * 1.1 - 40%),
+      rgba(0, 0, 0, 1) calc(16% + var(--ripple-offset) * 1.2 - 40%),
+      rgba(0, 0, 0, 1) calc(16% + 1% + var(--ripple-offset) * 1.2 - 40%),
+      rgba(0, 0, 0, 0) calc(27% + var(--ripple-offset) * 1.3 - 40%),
+      rgba(0, 0, 0, 0) calc(27% + 1% + var(--ripple-offset) * 1.3 - 40%),
+      rgba(0, 0, 0, 1) calc(41% + var(--ripple-offset) * 1.4 - 40%),
+      rgba(0, 0, 0, 1) calc(41% + 1% + var(--ripple-offset) * 1.4 - 40%),
+      rgba(0, 0, 0, 0.65) calc(50% + var(--ripple-offset) * 1.5 - 40%),
+      rgba(0, 0, 0, 0.65) calc(50% + 1% + var(--ripple-offset) * 1.5 - 40%),
+      rgba(0, 0, 0, 1) calc(55% + var(--ripple-offset) * 1.6 - 40%),
+      rgba(0, 0, 0, 1) calc(55% + 1% + var(--ripple-offset) * 1.6 - 40%),
+      rgba(0, 0, 0, 0.35) calc(77% + var(--ripple-offset) * 1.7 - 40%),
+      rgba(0, 0, 0, 0.35) calc(77% + 1% + var(--ripple-offset) * 1.7 - 40%),
+      rgba(0, 0, 0, 0.56) calc(90% + var(--ripple-offset) * 1.8 - 40%),
+      rgba(0, 0, 0, 0.56) calc(90% + 1% + var(--ripple-offset) * 1.8 - 40%),
+      rgba(0, 0, 0, 0) calc(100% + var(--ripple-offset) * 1.9 - 40%)
+    );
+    background-position: center;
+  }
+
+  /* Best we can do for detecting support for @property. See https://web.dev/at-property/ */
+  @supports (background: paint(something)) {
+    .overlay-gradient-2 {
+      animation: overlay-gradient 16s linear infinite;
+      animation-delay: -8s;
+    }
+  }
+
+  @supports not (background: paint(something)) {
+    .overlay-gradient-2 {
+      opacity: 0.35;
+      --ripple-offset: 45%;
+    }
+  }
+
+  @keyframes overlay-gradient {
+    0% {
+      --ripple-offset: 0%;
+      opacity: 0;
+    }
+    50% {
+      --ripple-offset: 30%;
+      opacity: 0.65;
+    }
+    100% {
+      --ripple-offset: 60%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 </style>
