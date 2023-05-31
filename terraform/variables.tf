@@ -11,6 +11,9 @@ variable "servers" {
     },
     "race" = {
       ip = "54.37.244.200"
+    },
+    "outright" = {
+      ip = "54.37.244.200"
     }
   }
 }
