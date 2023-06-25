@@ -78,3 +78,11 @@ resource "aws_route53_record" "catlord_server" {
   ttl     = 300
   records = [each.value.ip]
 }
+
+resource "aws_route53_record" "catlord_server_dev" {
+  zone_id = aws_route53_zone.catlord.zone_id
+  name    = "dev.catlord.co.uk"
+  type    = "CNAME"
+  ttl     = 300
+  records = ["acornpi.duckdns.org"]
+}
