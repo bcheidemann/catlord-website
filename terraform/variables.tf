@@ -3,6 +3,9 @@ variable "servers" {
     ip = string
   }))
   default = {
+    "prod" = {
+      ip = "54.37.244.200"
+    },
     "survival" = {
       ip = "54.37.244.200"
     },
