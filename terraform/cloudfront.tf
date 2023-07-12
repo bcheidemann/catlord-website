@@ -67,3 +67,54 @@ resource "aws_cloudfront_distribution" "catlord_static_site_distribution" {
     prefix          = "aws_cloudfront_distribution/catlord_static_site_distribution/"
   }
 }
+
+# ===================== Outright Server =====================
+
+resource "aws_cloudfront_distribution" "outright_production_server_distribution" {
+  origin {
+    connection_attempts      = 3
+    connection_timeout       = 10
+    domain_name              = "outright.catlord.co.uk"
+    origin_id                = "outright.catlord.co.uk"
+
+    custom_origin_config {
+      http_port                = 80
+      https_port               = 443
+      origin_protocol_policy   = "http-only"
+      origin_ssl_protocols     = ["TLSv1", "TLSv1.1", "TLSv1.2"]
+      origin_keepalive_timeout = 5
+      origin_read_timeout      = 30
+    }
+  }
+
+  enabled             = true
+  is_ipv6_enabled     = true
+  web_acl_id          = aws_wafv2_web_acl.catlord.arn
+  http_version        = "http2"
+
+  default_cache_behavior {
+    allowed_methods            = ["GET", "HEAD"]
+    cached_methods             = ["GET", "HEAD"]
+    # Using the CachingDisabled managed policy ID
+    cache_policy_id            = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+    # Using the Managed-AllViewer managed policy ID
+    origin_request_policy_id   = "216adef6-5c7f-47e4-b989-5492eafa07d3"
+    # Using the Managed-CORS-with-preflight-and-SecurityHeadersPolicy managed policy ID
+    response_headers_policy_id = "eaab4381-ed33-4a86-88ca-d9558dc6cd63"
+    compress                   = true
+    target_origin_id           = "outright.catlord.co.uk"
+    viewer_protocol_policy     = "redirect-to-https"
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none"
+    }
+  }
+  
+  viewer_certificate {
+    acm_certificate_arn            = aws_acm_certificate_validation.catlord_static_site_cert_validation.certificate_arn
+    ssl_support_method             = "sni-only"
+    minimum_protocol_version       = "TLSv1.2_2021"
+  }
+}
