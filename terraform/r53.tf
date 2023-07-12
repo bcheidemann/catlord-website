@@ -68,7 +68,6 @@ resource "aws_route53_record" "catlord_static_site_www" {
 #   records = ["catlord.co.uk"]
 # }
 
-
 resource "aws_route53_record" "catlord_server" {
   for_each = var.servers
 
