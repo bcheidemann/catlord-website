@@ -85,3 +85,11 @@ resource "aws_route53_record" "catlord_server_dev" {
   ttl     = 300
   records = ["acornpi.duckdns.org"]
 }
+
+resource "aws_route53_record" "catlord_servers" {
+  zone_id = aws_route53_zone.catlord.zone_id
+  name    = "*.servers.catlord.co.uk"
+  type    = "A"
+  ttl     = 300
+  records = ["54.37.244.200"]
+}
