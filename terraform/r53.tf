@@ -93,3 +93,11 @@ resource "aws_route53_record" "catlord_servers" {
   ttl     = 300
   records = ["54.37.244.200"]
 }
+
+resource "aws_route53_record" "outright_servers" {
+  zone_id = aws_route53_zone.catlord.zone_id
+  name    = "*.outright.catlord.co.uk"
+  type    = "A"
+  ttl     = 300
+  records = ["149.202.89.159"]
+}
