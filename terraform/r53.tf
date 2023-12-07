@@ -101,3 +101,15 @@ resource "aws_route53_record" "outright_servers" {
   ttl     = 300
   records = ["149.202.89.159"]
 }
+
+resource "aws_route53_record" "catlord_files" {
+  zone_id = aws_route53_zone.catlord.zone_id
+  name    = "files.catlord.co.uk"
+  type    = "A"
+
+  alias {
+    name                   = aws_cloudfront_distribution.catlord_files_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.catlord_files_distribution.hosted_zone_id
+    evaluate_target_health = true
+  }
+}
