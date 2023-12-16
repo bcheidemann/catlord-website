@@ -1,0 +1,83 @@
+---
+import { OutrightSchedule } from "../../components/outright/Schedule";
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Outright SMP</title>
+  </head>
+  <body>
+    <section>
+      <div class="header">
+        <h1>Outright SMP</h1>
+      </div>
+      <div class="content">
+        <h2>Outright Stream Schedule</h2>
+        <p>
+          Support the server by watching the streamers below!
+        </p>
+        <OutrightSchedule client:load />
+      </div>
+    </section>
+  </body>
+</html>
+
+<style>
+  html {
+    font-family: system-ui, sans-serif;
+    color: #444;
+  }
+  body {
+    margin: unset;
+    padding: unset;
+    min-height: 100dvh;
+    background: rgb(204, 232, 232);
+    background: linear-gradient(
+      125deg,
+      rgba(204, 232, 232, 1) 0%,
+      rgba(163, 226, 195, 1) 100%
+    );
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #eee;
+    max-width: 600px;
+    margin: auto;
+    margin-block: 16px;
+    height: fit-content;
+    border-radius: 16px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+  }
+  section .header {
+    background-color: #eee;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+  }
+  section .content {
+    width: calc(100% - 32px);
+    padding: 16px;
+    padding-block-end: 32px;
+  }
+  a {
+    color: #444;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  li {
+    margin-block-end: 16px;
+  }
+</style>

@@ -102,6 +102,14 @@ resource "aws_route53_record" "outright_servers" {
   records = ["149.202.89.159"]
 }
 
+resource "aws_route53_record" "outright_api" {
+  zone_id = aws_route53_zone.catlord.zone_id
+  name    = "outright.api.catlord.co.uk"
+  type    = "A"
+  ttl     = 300
+  records = ["139.162.245.152"]
+}
+
 resource "aws_route53_record" "catlord_files" {
   zone_id = aws_route53_zone.catlord.zone_id
   name    = "files.catlord.co.uk"
