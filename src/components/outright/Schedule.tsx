@@ -74,7 +74,8 @@ const Schedule = () => {
                   )}
                 </div>
                 <span className={streamTime}>
-                  {item.start}{item.end && ` - ${item.end}`}
+                  {item.start}
+                  {item.end && ` - ${item.end}`}
                 </span>
                 {item.info && <p style={{ margin: 0 }}>{item.info}</p>}
               </li>

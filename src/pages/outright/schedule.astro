@@ -9,12 +9,46 @@ import { OutrightSchedule } from "../../components/outright/Schedule";
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="generator" content={Astro.generator} />
-    <title>Outright SMP</title>
+    <title>Outright Charity Event</title>
   </head>
   <body>
+    <div
+      style="
+        position: fixed;
+        bottom: 16px;
+        right: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: #eee;
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 12px;
+      "
+    >
+      <img
+        src="/outright-donation-qr.png"
+        alt="Outright Donation QR Code"
+        width="140"
+        height="140"
+        class="donation-qr"
+      />
+      <a
+        href="https://tiltify.com/outright-action-international/streaming-with-pride-the-chosen-family-fundraising-campaign"
+        target="_blank"
+        style="
+          color: black;
+          font-size: 24px;
+          font-weight: 600;
+          cursor: pointer;
+        "
+      >
+        Donate!
+      </a>
+    </div>
     <section>
       <div class="header">
-        <h1>Outright SMP</h1>
+        <h1>Outright Charity Event</h1>
       </div>
       <div class="content">
         <h2>Outright Stream Schedule</h2>
@@ -77,5 +111,12 @@ import { OutrightSchedule } from "../../components/outright/Schedule";
   }
   li {
     margin-block-end: 16px;
+  }
+  .donation-qr {
+    margin-block-end: 8px;
+
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
   }
 </style>
