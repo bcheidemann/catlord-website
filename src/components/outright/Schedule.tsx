@@ -74,7 +74,7 @@ const Schedule = () => {
                   )}
                 </div>
                 <span className={streamTime}>
-                  {item.start} - {item.end}
+                  {item.start}{item.end && ` - ${item.end}`}
                 </span>
                 {item.info && <p style={{ margin: 0 }}>{item.info}</p>}
               </li>
@@ -122,10 +122,10 @@ async function getSchedule() {
             case "END":
               END_IDX = item.indexOf(header);
               break;
-            case "LINK?":
+            case "LINK":
               LINK_IDX = item.indexOf(header);
               break;
-            case "INFO?":
+            case "INFO":
               INFO_IDX = item.indexOf(header);
               break;
           }
@@ -155,7 +155,7 @@ type ScheduleItem = {
   day: string;
   creator: string;
   start: string;
-  end: string;
+  end?: string;
   link?: string;
   info?: string;
 };
