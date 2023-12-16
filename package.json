@@ -23,7 +23,8 @@
     "lint-staged": "^13.2.0",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.3"
   },
   "devDependencies": {
     "@action-validator/cli": "^0.5.1",
