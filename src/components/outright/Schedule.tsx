@@ -56,21 +56,13 @@ const Schedule = () => {
                 >
                   <h3 className={creatorName}>{item.creator}</h3>
                   {item.link && (
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "flex-end",
-                        width: "100%",
-                      }}
+                    <a
+                      className={streamLinkButton}
+                      href={item.link}
+                      target="_blank"
                     >
-                      <a
-                        className={streamLinkButton}
-                        href={item.link}
-                        target="_blank"
-                      >
-                        Watch
-                      </a>
-                    </div>
+                      Watch
+                    </a>
                   )}
                 </div>
                 <span className={streamTime}>
