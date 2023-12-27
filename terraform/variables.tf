@@ -17,6 +17,9 @@ variable "servers" {
     },
     "outright" = {
       ip = "54.37.244.200"
-    }
+    },
+    "s9.hermitcraft" = {
+      ip = "149.202.89.159"
+    },
   }
 }
